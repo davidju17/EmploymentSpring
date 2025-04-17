@@ -19,7 +19,7 @@ public interface EmployeeService
      *
      * @param employee the employee to save.
      */
-    void save(Employee employee);
+    Employee save(Employee employee);
 
     /**
      * Retrieves an employee by their unique identifier.

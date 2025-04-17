@@ -2,6 +2,7 @@ package com.davcode.springboot.employment.service;
 
 import com.davcode.springboot.employment.dao.EmployeeDAO;
 import com.davcode.springboot.employment.entity.Employee;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,11 @@ public class EmployeeServiceImpl implements EmployeeService
         return employeeDAO.findAll();
     }
 
+    @Transactional
     @Override
-    public void save(Employee employee)
+    public Employee save(Employee employee)
     {
-        employeeDAO.save(employee);
+        return employeeDAO.save(employee);
     }
 
     @Override
@@ -36,6 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService
         return employeeDAO.findById(id);
     }
 
+    @Transactional
     @Override
     public void deleteById(int id)
     {
