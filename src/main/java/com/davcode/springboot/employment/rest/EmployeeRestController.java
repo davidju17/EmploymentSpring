@@ -2,6 +2,7 @@ package com.davcode.springboot.employment.rest;
 
 import com.davcode.springboot.employment.dao.EmployeeDAO;
 import com.davcode.springboot.employment.entity.Employee;
+import com.davcode.springboot.employment.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,16 +17,16 @@ import java.util.List;
 public class EmployeeRestController
 {
 
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     /**
-     * Constructor for injecting the EmployeeDAO dependency.
+     * Constructor for EmployeeRestController.
      *
-     * @param employeeDAO Data Access Object for Employee entities.
+     * @param employeeService The service used to manage employee data.
      */
-    public EmployeeRestController(EmployeeDAO employeeDAO)
+    public EmployeeRestController(EmployeeService employeeService)
     {
-        this.employeeDAO = employeeDAO;
+        this.employeeService = employeeService;
     }
 
     /**
@@ -36,7 +37,6 @@ public class EmployeeRestController
     @GetMapping("/employees")
     public List<Employee> getEmployees()
     {
-        return employeeDAO.findAll();
+        return employeeService.findAll();
     }
-
 }
