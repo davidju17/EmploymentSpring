@@ -3,10 +3,7 @@ package com.davcode.springboot.employment.rest;
 import com.davcode.springboot.employment.dao.EmployeeDAO;
 import com.davcode.springboot.employment.entity.Employee;
 import com.davcode.springboot.employment.service.EmployeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,5 +49,13 @@ public class EmployeeRestController
             throw new RuntimeException("The employee id was not found - " + employeeId);
         }
         return employee;
+    }
+
+    @PostMapping("/employees")
+    public Employee addEmployee(@RequestBody Employee employee)
+    {
+        // Set the ID to 0 to ensure a new employee is created
+        employee.setId(0);
+        return employeeService.save(employee);
     }
 }
