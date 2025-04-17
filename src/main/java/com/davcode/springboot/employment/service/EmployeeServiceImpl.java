@@ -27,18 +27,18 @@ public class EmployeeServiceImpl implements EmployeeService
     @Override
     public void save(Employee employee)
     {
-
+        employeeDAO.save(employee);
     }
 
     @Override
     public Employee findById(int id)
     {
-        return null;
+        return employeeDAO.findById(id);
     }
 
     @Override
     public void deleteById(int id)
     {
-
+        employeeDAO.deleteById(id);
     }
 }

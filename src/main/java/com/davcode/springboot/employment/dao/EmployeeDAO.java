@@ -20,8 +20,9 @@ public interface EmployeeDAO
      * Saves a new employee to the database.
      *
      * @param employee the employee to save.
+     * @return the saved employee with its generated ID.
      */
-    void save(Employee employee);
+    Employee save(Employee employee);
 
     /**
      * Retrieves an employee by their unique identifier.
