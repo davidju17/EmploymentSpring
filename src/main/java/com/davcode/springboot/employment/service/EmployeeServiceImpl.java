@@ -1,7 +1,7 @@
 package com.davcode.springboot.employment.service;
 
-import com.davcode.springboot.employment.dao.EmployeeDAO;
 import com.davcode.springboot.employment.entity.Employee;
+import com.davcode.springboot.employment.dao.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService
 {
-    private EmployeeDAO employeeDAO;
+    private EmployeeRepository employeeRepository;
 
     /**
      * Constructor for EmployeeServiceImpl.
      *
-     * @param employeeDAO the DAO used to manage employee data.
+     * @param employeeRepository The repository used to manage employee data.
      */
     @Autowired
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO)
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository)
     {
-        this.employeeDAO = employeeDAO;
+        this.employeeRepository = employeeRepository;
     }
 
 
@@ -37,18 +37,17 @@ public class EmployeeServiceImpl implements EmployeeService
     @Override
     public List<Employee> findAll()
     {
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
     }
 
 
     /**
      * {@inheritDoc}
      */
-    @Transactional
     @Override
     public Employee save(Employee employee)
     {
-        return employeeDAO.save(employee);
+        return employeeRepository.save(employee);
     }
 
     /**
@@ -57,16 +56,15 @@ public class EmployeeServiceImpl implements EmployeeService
     @Override
     public Employee findById(int id)
     {
-        return employeeDAO.findById(id);
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found with id " + id));
     }
 
     /**
      * {@inheritDoc}
      */
-    @Transactional
     @Override
     public void deleteById(int id)
     {
-        employeeDAO.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 }
