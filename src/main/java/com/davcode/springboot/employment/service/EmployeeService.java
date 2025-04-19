@@ -4,6 +4,9 @@ import com.davcode.springboot.employment.entity.Employee;
 
 import java.util.List;
 
+/**
+ * The EmployeeService interface provides methods for managing employee data.
+ */
 public interface EmployeeService
 {
 

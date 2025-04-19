@@ -17,9 +17,9 @@ import java.util.Map;
 @RequestMapping("/api")
 public class EmployeeRestController
 {
-
     private EmployeeService employeeService;
     private ObjectMapper objectMapper;
+
 
     /**
      * Constructor for EmployeeRestController.
@@ -35,6 +35,7 @@ public class EmployeeRestController
         this.objectMapper = objectMapper;
     }
 
+
     /**
      * Handles GET requests to retrieve a list of all employees.
      *
@@ -47,6 +48,11 @@ public class EmployeeRestController
     }
 
 
+    /**
+     * Handles GET requests to retrieve a specific employee by ID.
+     *
+     * @param employeeId The ID of the employee to retrieve.
+     */
     @GetMapping("/employees/{employeeId}")
     public Employee getEmployee(@PathVariable int employeeId)
     {
@@ -59,6 +65,12 @@ public class EmployeeRestController
         return employee;
     }
 
+
+    /**
+     * Handles POST requests to add a new employee.
+     *
+     * @param employee The employee object to add.
+     */
     @PostMapping("/employees")
     public Employee addEmployee(@RequestBody Employee employee)
     {
@@ -67,12 +79,25 @@ public class EmployeeRestController
         return employeeService.save(employee);
     }
 
+
+    /**
+     * Handles PUT requests to update an existing employee.
+     *
+     * @param employee The employee object with updated data.
+     */
     @PutMapping("/employees")
     public Employee updateEmployee(@RequestBody Employee employee)
     {
         return employeeService.save(employee);
     }
 
+
+    /**
+     * Handles PATCH requests to partially update an existing employee.
+     *
+     * @param employeeId  The ID of the employee to update.
+     * @param patchPayLoad The JSON payload containing the fields to update.
+     */
     @PatchMapping("/employees/{employeeId}")
     public Employee patchEmployee(@PathVariable int employeeId, @RequestBody Map<String, Object> patchPayLoad)
     {
@@ -94,6 +119,13 @@ public class EmployeeRestController
     }
 
 
+    /**
+     * Applies a patch to an existing employee object.
+     *
+     * @param patchPayLoad  The JSON payload containing the fields to update.
+     * @param existingEmployee  The existing employee object to be updated.
+     * @return The updated employee object.
+     */
     public Employee apply(Map<String, Object> patchPayLoad, Employee existingEmployee)
     {
         // Convert existing employee to a JSON ObjectNode
@@ -106,19 +138,20 @@ public class EmployeeRestController
         return objectMapper.convertValue(employeeNode, Employee.class);
     }
 
+
+    /**
+     * Handles DELETE requests to remove an employee by ID.
+     *
+     * @param employeeId The ID of the employee to delete.
+     */
     @DeleteMapping("employees/{employeeId}")
     public void deleteEmployee(@PathVariable int employeeId)
     {
         Employee employee = employeeService.findById(employeeId);
-
         if(employee == null)
         {
             throw new RuntimeException("The employee id was not found - " + employeeId);
         }
-
         employeeService.deleteById(employeeId);
     }
-
-
-
 }
