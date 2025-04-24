@@ -31,6 +31,6 @@ public class EmployeeController
         // Add the list of employees to the model
         model.addAttribute("employees", employees);
 
-        return "list-employees";
+        return "employees/list-employees";
     }
 }
