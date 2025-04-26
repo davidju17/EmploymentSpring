@@ -28,7 +28,7 @@ public class EmployeeController
     @GetMapping("/list")
     public String listEmployees(Model model)
     {
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeRepository.findAllByOrderByLastNameAsc();
 
         // Add the list of employees to the model
         model.addAttribute("employees", employees);
