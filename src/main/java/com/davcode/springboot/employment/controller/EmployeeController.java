@@ -5,13 +5,11 @@ import com.davcode.springboot.employment.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/employees")
@@ -43,6 +41,19 @@ public class EmployeeController
         model.addAttribute("employee", new Employee());
         return "employees/employee-form";
     }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("id") int id, Employee theEmployee, Model model)
+    {
+        Optional<Employee> optionalEmployeebyId = employeeRepository.findById(id);
+
+        Employee employee = optionalEmployeebyId.orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        model.addAttribute("employee", employee);
+
+        return "employees/employee-form";
+    }
+
 
     @PostMapping("/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee)
